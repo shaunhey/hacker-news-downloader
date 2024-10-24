@@ -33,6 +33,7 @@ func downloadItem(db *sql.DB, id int) error {
 	if err != nil {
 		return fmt.Errorf("downloadItem: failed to read response body: %w", err)
 	}
+	res.Body.Close()
 
 	_, err = db.Exec("insert into news(id, data) values (?,?);", id, string(bytes))
 	if err != nil {
